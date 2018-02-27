@@ -1,0 +1,75 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion project.appCompileSdkVersion
+
+    defaultConfig {
+        applicationId "com.example.damiencuny.android_clean_architecture_boiler_plate"
+
+        versionCode project.versionCode
+        versionName project.versionName
+
+        minSdkVersion project.appMinSdkVersion
+        targetSdkVersion project.appTargetSdkVersion
+
+        proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    }
+
+    signingConfigs {
+        releaseSign {
+            storeFile file('../keystore.jks')
+            storePassword 'android'
+            keyAlias 'CleanArchi'
+            keyPassword 'android'
+        }
+    }
+
+    buildTypes {
+        debug {
+            versionNameSuffix ".debug"
+
+            debuggable true
+            useProguard false
+            minifyEnabled false
+            shrinkResources false
+        }
+
+        release {
+            debuggable false
+            useProguard true
+            minifyEnabled true
+            shrinkResources true
+
+            signingConfig signingConfigs.releaseSign
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation project(path: ':domain')
+    implementation project(path: ':data')
+
+    implementation('com.crashlytics.sdk.android:crashlytics:2.6.8@aar') {
+        transitive = true
+    }
+
+    implementation "com.android.support:appcompat-v7:$project.androidSupportVersion"
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+
+    implementation "io.reactivex.rxjava2:rxandroid:$project.rxAndroidVersion"
+    implementation "io.reactivex.rxjava2:rxjava:$project.rxJavaVersion"
+    implementation "com.google.dagger:dagger:$project.daggerVersion"
+
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
+    debugImplementation 'com.facebook.stetho:stetho:1.5.0'
+
+    androidTestImplementation "com.android.support.test:runner:$project.testRunnerVersion"
+    androidTestImplementation "com.android.support.test.espresso:espresso-core:$project.expressoCoreVersion"
+
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.14.1'
+}

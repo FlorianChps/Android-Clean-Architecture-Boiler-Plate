@@ -1,0 +1,44 @@
+buildscript {
+    repositories {
+        google()
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.0.1'
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+    }
+
+    ext {
+        versionName = "1.0"
+        versionCode = 1
+
+        appBuildToolsVersion = '27.0.3'
+        appCompileSdkVersion = 27
+        appTargetSdkVersion = 27
+        appMinSdkVersion = 19
+
+        androidSupportVersion = '27.0.2'
+        firebaseVersion = '11.8.0'
+        rxJavaVersion = '2.1.10'
+        rxAndroidVersion = '2.0.2'
+        javaxInjectVersion = '1'
+        javaxAnnotationVersion = '1.0'
+
+        testRunnerVersion = '1.0.1'
+        expressoCoreVersion = '3.0.1'
+
+        //App
+        daggerVersion = '2.11'
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
